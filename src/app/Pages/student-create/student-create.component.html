@@ -1,0 +1,56 @@
+<div>
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-header">
+          <h4>Create Car
+            <a routerLink="/students" class="btn btn-danger float-end">Back</a>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div *ngIf="isLoading; else elseForm">
+            <app-loader [title]="LoadingTitle"></app-loader>
+          </div>
+          <ng-template #elseForm>
+            <form [formGroup]="studentForm" (ngSubmit)="saveCar()">
+              <div class="mb-3">
+                <label>Brand</label>
+                <input type="text" formControlName="brand" class="form-control">
+                <div *ngIf="formControls['brand'].errors && (formControls['brand'].dirty || formControls['brand'].touched)" class="text-danger">
+                  <div *ngIf="formControls['brand'].errors['required']">Brand is required.</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label>Model</label>
+                <input type="text" formControlName="model" class="form-control">
+                <div *ngIf="formControls['model'].errors && (formControls['model'].dirty || formControls['model'].touched)" class="text-danger">
+                  <div *ngIf="formControls['model'].errors['required']">Model is required.</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label>Year</label>
+                <input type="text" formControlName="year" class="form-control">
+                <div *ngIf="formControls['year'].errors && (formControls['year'].dirty || formControls['year'].touched)" class="text-danger">
+                  <div *ngIf="formControls['year'].errors['required']">Year is required.</div>
+                  <div *ngIf="formControls['year'].errors['pattern']">Year must be a number.</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label>ID</label>
+                <input type="text" formControlName="id" class="form-control">
+                <div *ngIf="formControls['id'].errors && (formControls['id'].dirty || formControls['id'].touched)" class="text-danger">
+                  <div *ngIf="formControls['id'].errors['required']">ID is required.</div>
+                  <div *ngIf="formControls['id'].errors['pattern']">ID must be a number.</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary" [disabled]="isLoading">Save</button>
+              </div>
+              <div *ngIf="errors.form" class="text-danger">{{ errors.form }}</div>
+              <div *ngIf="errors.server" class="text-danger">{{ errors.server }}</div>
+            </form>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  
